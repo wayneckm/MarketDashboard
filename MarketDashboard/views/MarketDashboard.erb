@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Market Dashboard</title>
+  <style>
+  table {
+    border-collapse: collapse;
+	}
+
+  table, td, th {
+    border: 1px solid black;
+	}
+
+   th {
+    background-color: orange;
+    color: black;
+	}
+   </style>
+</head>
+
+<body>
+<table border="1" style="width:50%; font-family:verdana">
+  <% @tableDisplay.each_with_index do |r,i| %>
+  	<tr>
+  	<% if (i == 0) %>	
+   <% r.each do |p| %>
+   <th> <%= p %></th>
+   <% end %>
+   <% else %>
+  	<% r.each_with_index  do |p,j| %>
+  	<% if (j == 0) %>	
+   <td align="left"> <%= p %></td>
+   <% else %>	
+   <td align="right"> <%= p %></td>
+   <% end %>	
+   <% end %>
+   <% end %>
+    </tr>
+  <% end %>
+</table>
+
+</body>
+</html>
