@@ -7,5 +7,3 @@ The procedures are as follows:
 4) Format and show the table of results in HTML
 
 The local address of the webpage is http://localhost:4567/MarketDashboard
-
-Screen capture of the table is also attached.
