@@ -8,19 +8,21 @@ get '/MarketDashboard' do
   ticketUsed = []
   basePriceUsed = []
       
-    
+  # Extract the corresponding subset of data for analysis  
   CSV.foreach('source.csv').each_with_index do |row,i|
-    if ($. == 6) | ($. == 8) | ($. == 10)
+    if ($. == 6)  | ($. == 8) | ($. == 10)
       dataUsed << row
       dateUsed << row[0]
       ticketUsed << row[1] << row[8] << row[15] << row[22] << row[29] << row[36]
     end
   end
   
+  # Find unique tickets
   ticketUsed = ticketUsed.uniq{|a| a}.compact
   
   N = dataUsed.length
-     
+  
+  # Determine appropriate prices for calucation   
   [*0..(N-1)].each do |m|
     basePriceUsed_ = []
     [3,10,17,24,31,38].each do |n|
@@ -46,7 +48,8 @@ get '/MarketDashboard' do
   NbasePriceUsed = basePriceUsed.length
       
   resultReturn = []
-     
+  
+  # Calculate simple returns, NA for missing market data    
   [*1..(NbasePriceUsed-1)].each do |m|
     resultReturn << basePriceUsed[0].zip(basePriceUsed[m]).collect{|x,y| 
       if(x =="NA") | (y =="NA") 
@@ -56,7 +59,7 @@ get '/MarketDashboard' do
       end }.to_a   
   end
   
-    
+  # Prepare table of results for display  
   @tableDisplay = []
   @tableDisplay << ["",
                     "D-1@" + dateUsed[0][11..15],
